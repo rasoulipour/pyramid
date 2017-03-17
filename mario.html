@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="normalize.css">
+  <link rel="stylesheet" type="text/css" href="MarioStyles.css" media="screen" />
+
+</head>
+<body>
+
+    <header>
+      <h1>Piramid Slide</h1>
+    </header>
+
+    <div id="pyra">
+      <div id="hdline">
+        <div id="left">
+          Brick Symbol:
+          <select id="select" name="select" onchange="SelectElement()">
+            <option value="1"> @ </option>
+            <option value="2"> # </option>
+            <option value="3"> O </option>
+            <option value="4"> X </option>
+          </select>
+
+        </div>
+        <div id="right">
+          How High?
+          <input type="range" oninput="myFunction()" id="myRange" value="15" min="3" max="15" step="1">
+          <p id="demo" style="display:inline"></p>
+        </div>
+      </div>
+      <div id="pyramid">
+          <!-- Our pyramid will go inside here -->
+          <div id="construction"></div>
+      </div>
+    </div>
+
+
+
+
+
+
+    <script>
+
+var shape = "@"
+
+    function SelectElement()
+    {
+        var element = document.getElementById('select');
+        if (element.value == "1"){
+          shape = "@";
+        }
+        else if (element.value == "2"){
+          shape = "#";
+        }
+
+        else if (element.value == "3"){
+          shape = "O";
+        }
+
+        else{
+          shape = "X";
+        }
+
+        console.log(shape);
+
+    }
+
+    function myFunction() {
+        var x = document.getElementById("myRange").value;
+        document.getElementById("demo").innerHTML = x;
+
+      drawPyramid(x, shape);
+
+      function drawPyramid(height, shape) {
+
+          // TODO 2
+          // delete the "under construction" element, ie the <div id="notice">
+          var construction = document.getElementById("construction");
+          construction.innerHTML = "";
+          // for each row....
+          for (var row = 0; row < height; row++) {
+
+              // figure out number of bricks and spaces
+              var numBricks = row + 2;
+              var numSpaces = height - row - 1;
+
+              // build up a string for this row
+              var rowStr = "";
+              for (var i = 0; i < numSpaces; i++) {
+                  rowStr += "."; // QUIZ: what happens if we use a space (" ") instead of a period?
+              }
+              for (var i = 0; i < numBricks; i++) {
+                  rowStr += shape;
+              }
+
+              var domRow = document.createElement("p");
+              domRow.append(rowStr);
+
+              construction.append(domRow)
+              // you can delete this now
+              console.log(rowStr)
+
+          }
+      }
+    }
+    </script>
+
+</body>
+</html>
